@@ -32,8 +32,6 @@ namespace FFXIVTataruHelper
 
         private WindowResizer _WindowResizer;
 
-        private MouseHooker _MouseHooker;
-
         private bool _IsClickThrought = false;
 
         private DateTime _TextArrivedTime;
@@ -43,12 +41,16 @@ namespace FFXIVTataruHelper
         TataruModel _TataruModel;
         ChatWindowViewModel _ChatWindowViewModel;
 
-        public ChatWindow(TataruModel tataruModel, ChatWindowViewModel chatWindowViewModel)
+        MainWindow _MainWindow;
+
+        public ChatWindow(TataruModel tataruModel, ChatWindowViewModel chatWindowViewModel, MainWindow mainWindow)
         {
             InitializeComponent();
 
             try
             {
+                _MainWindow = mainWindow;
+
                 _TataruModel = tataruModel;
                 _ChatWindowViewModel = chatWindowViewModel;
 
@@ -93,12 +95,9 @@ namespace FFXIVTataruHelper
 
         protected virtual void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _MouseHooker = null;
-
             AutoHideStatusCheck();
 
             _TataruModel.FFMemoryReader.AddExclusionWindowHandler((new WindowInteropHelper(this).Handle));
-
 
             if (_ChatWindowViewModel.IsClickThrough)
                 MakeWindowClickThrought();
@@ -115,9 +114,6 @@ namespace FFXIVTataruHelper
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             _KeepWorking = false;
-
-            if (_MouseHooker != null)
-                _MouseHooker.UnHook();
         }
 
         protected virtual void Window_Deactivated(object sender, EventArgs e)
@@ -132,7 +128,6 @@ namespace FFXIVTataruHelper
 
         protected async Task OnTextArrived(ChatMessageArrivedEventArgs ea)
         {
-
             string text = "";
             Color textColor = Color.FromArgb(255, 255, 255, 255);
             ChatCodeViewModel chatCode;
@@ -196,7 +191,6 @@ namespace FFXIVTataruHelper
                     {
                         ShowErorrText(1, _ChatWindowViewModel.CurrentTransaltionEngine.Name, textColor);
                     });
-
                 }
                 else
                 {
@@ -205,8 +199,10 @@ namespace FFXIVTataruHelper
                 }
             }
 
-            text = await _TataruModel.ChatProcessor.Translate(ea.ChatMessage.Text, _ChatWindowViewModel.CurrentTransaltionEngine,
-            _ChatWindowViewModel.CurrentTranslateFromLanguague, _ChatWindowViewModel.CurrentTranslateToLanguague, chatCode.Code);
+            DateTime timeStamp = default(DateTime);
+
+            if (_ChatWindowViewModel.ShowTimestamps)
+                timeStamp = ea.ChatMessage.TimeStamp;
 
             await this.UIThreadAsync(() =>
             {
@@ -215,7 +211,7 @@ namespace FFXIVTataruHelper
                 if (_ChatWindowViewModel.IsHiddenByUser == false)
                     _TextArrivedTime = DateTime.UtcNow;
 
-                ShowTransaltedText(text, textColor);
+                ShowTransaltedText(text, textColor, timeStamp);
 
                 if (_ChatWindowViewModel.IsHiddenByUser == false)
                     _TextArrivedTime = DateTime.UtcNow;
@@ -247,6 +243,20 @@ namespace FFXIVTataruHelper
                         if (_ChatWindowViewModel.IsWindowVisible == true)
                             _TextArrivedTime = DateTime.UtcNow;
 
+                    }
+                    break;
+                case "BackGroundColor":
+                    {
+                        if (_ChatWindowViewModel.BackGroundColor.A == 255)
+                            this.AllowsTransparency = false;
+                        else
+                            this.AllowsTransparency = true;
+
+                        if (_ChatWindowViewModel.IsClickThrough)
+                        {
+                            MakeWindowClickbale();
+                            MakeWindowClickThrought();
+                        }
                     }
                     break;
             }
@@ -291,7 +301,7 @@ namespace FFXIVTataruHelper
 
         #region **Transaltion.
 
-        void ShowTransaltedText(string translatedMsg, Color color)
+        void ShowTransaltedText(string translatedMsg, Color color, DateTime timeStamp = default(DateTime))
         {
             try
             {
@@ -325,18 +335,25 @@ namespace FFXIVTataruHelper
                     name = msgText.Substring(0, nameInd);
                     text = msgText.Substring(nameInd, msgText.Length - nameInd);
 
+                    if (timeStamp != default(DateTime))
+                        name = timeStamp.ToString("HH:mm") + " " + name;
+
                     TextRange tr1 = new TextRange(ChatRtb.Document.ContentEnd, ChatRtb.Document.ContentEnd);
                     tr1.Text = name;
                     tr1.ApplyPropertyValue(TextElement.ForegroundProperty, tmpColor);
                     tr1.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Bold);
 
                     TextRange tr2 = new TextRange(ChatRtb.Document.ContentEnd, ChatRtb.Document.ContentEnd);
+
                     tr2.Text = text;
                     tr2.ApplyPropertyValue(TextElement.ForegroundProperty, tmpColor);
                     tr2.ApplyPropertyValue(TextElement.FontWeightProperty, FontWeights.Normal);//*/
                 }
                 else
                 {
+                    if (timeStamp != default(DateTime))
+                        translatedMsg = timeStamp.ToString("HH:mm") + " " + translatedMsg;
+
                     TextRange tr = new TextRange(ChatRtb.Document.ContentEnd, ChatRtb.Document.ContentEnd);
                     tr.Text = translatedMsg;
 
@@ -356,8 +373,7 @@ namespace FFXIVTataruHelper
             if (errorCode == 1)
             {
                 //string text = ((string)_SettigsWindow.Resources["TranslationEngineSwitchMsg"]) + " " + Convert.ToString(_TataruUIModel.TranslationEngine);
-                string text = ((string)Application.Current.Resources["TranslationEngineSwitchMsg"])+EngineName;
-
+                string text = ((string)Application.Current.Resources["TranslationEngineSwitchMsg"]) + EngineName;
 
                 ShowWindow();
 
@@ -450,67 +466,6 @@ namespace FFXIVTataruHelper
             }
         }
 
-        async Task OnLowLevelMousEvent(LowLevelMouseEventArgs ea)
-        {
-            if (ea.MouseMessages == MouseHooker.MouseMessages.WM_MOUSEWHEEL)
-            {
-                await this.UIThreadAsync(() =>
-                {
-                    /*
-                    if (!_TataruUIModel.IsChatClickThrough)
-                    {
-                        var bc = ((SolidColorBrush)this.Background).Color;
-                        if (bc.A == 0)
-                        {
-                            var data = ea.MouseEventFlags.mouseData;
-                            uint fxdData = ((data & 0xFFFF0000) >> 16);
-                            uint realData = 0;
-
-                            double MouseWheelScrollDelta = System.Windows.Forms.SystemInformation.MouseWheelScrollDelta;
-
-                            string msg = String.Empty;
-
-                            if (IsLowLevelMousOver(ea.MouseEventFlags.pt))
-                            {
-                                if (fxdData < 32000)
-                                {
-                                    realData = fxdData;
-
-                                    int res = (int)Math.Round(realData / MouseWheelScrollDelta) * 2;
-                                    for (int i = 0; i < res; i++)
-                                        ChatRtb.LineUp();
-                                }
-                                else
-                                {
-                                    realData = 65536 - fxdData;
-
-                                    int res = (int)Math.Round(realData / MouseWheelScrollDelta) * 2;
-                                    for (int i = 0; i < res; i++)
-                                        ChatRtb.LineDown();
-                                }
-                            }
-                        }
-                    }//*/
-                });
-            }
-        }
-
-        bool IsLowLevelMousOver(MouseHooker.POINT pt)
-        {
-            var point0 = PointToScreen(new System.Windows.Point(0, 0));
-
-            double right = point0.X + this.Width;
-            double bottom = point0.Y + this.Height;
-
-            if (pt.x > point0.X && pt.x < right)
-            {
-                if (pt.y > point0.Y && pt.y < bottom)
-                    return true;
-            }
-
-            return false;
-        }
-
         void HideThisWindow_Click(object sender, RoutedEventArgs e)
         {
             _ChatWindowViewModel.IsHiddenByUser = true;
@@ -520,13 +475,13 @@ namespace FFXIVTataruHelper
 
         void Settings_Click(object sender, RoutedEventArgs e)
         {
-
             /*
             Helper.Unminimize(_SettigsWindow);
 
             _SettigsWindow.Visibility = Visibility.Visible;
             _SettigsWindow.Activate();
             _SettigsWindow.Focus();//*/
+            _MainWindow.ShowSettingsWindow();
         }
 
         void Exit_Click(object sender, RoutedEventArgs e)
@@ -560,7 +515,6 @@ namespace FFXIVTataruHelper
                             this.UIThread(() =>
                             {
                                 _AutoHidden = true;
-                                //this.Hide();
                                 _ChatWindowViewModel.IsWindowVisible = false;
                             });
                         }

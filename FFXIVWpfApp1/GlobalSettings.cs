@@ -13,24 +13,6 @@ namespace FFXIVTataruHelper
 
         public static string ChatCodesFilePath = @"Resources\ChatCodes.json";
 
-        public static string GoogleTranslateLanguages = "Resources/GoogleTranslateLanguages.json";
-
-        public static string MultillectTranslateLanguages = "Resources/MultillectTranslateLanguages.json";
-
-        public static string DeeplLanguages = "Resources/DeeplLanguages.json";
-
-        public static string YandexLanguages = "Resources/YandexTranslateLanguages.json";
-
-        public static string BaiduLanguages = "Resources/BaiduLanguages.json";
-
-        public static string BaiduEncoder = "Resources/BaiduEncoder.js";
-
-        public static string AmazonLanguages = "Resources/AmazonLanguages.json";
-
-        public static string PapagoLanguages = "Resources/PapagoLanguages.json";
-
-        public static string PapagoEncoderPath = "Resources/PapagoEncoder";
-
         public static string LocalisationDirPath = @"Locale_cloud\";
 
         public static string ru_RU_LanguaguePath = @"ru\ru_RU.mo";
@@ -44,6 +26,12 @@ namespace FFXIVTataruHelper
         public static string ko_KR_LanguaguePath = @"ko\ko_KR.mo";
 
         public static string pt_BR_LanguaguePath = @"pt-BR\pt_BR.mo";
+
+        public static string ca_Es_LanguaguePath = @"ca\ca_ES.mo";
+
+        public static string it_IT_LanguaguePath = @"it\it_IT.mo";
+
+        public static string uk_UA_LanguaguePath = @"uk\uk_UA.mo";
 
         public static int SpiWaitTimeOutMS = 500;
 

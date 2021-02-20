@@ -2,9 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using FFXIVTataruHelper.EventArguments;
-using FFXIVTataruHelper.Translation;
-using FFXIVTataruHelper.ViewModel;
-using FFXIVTataruHelper.WinUtils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,7 +56,7 @@ namespace FFXIVTataruHelper.TataruComponentModel
             {
                 if (!_PropertyCouples.TryAdd(pr.PropName1, pr))
                 {
-                    string msg = "Tryed to bind pporperty with alredy binded property. " + Environment.NewLine;
+                    string msg = "Tried to bind property with already binded property. " + Environment.NewLine;
                     msg += Convert.ToString(_Object1) + "; " + Convert.ToString(_Object2) + ";" + Environment.NewLine;
                     msg += pr.Property1Info.ToString() + "; " + pr.Property2Info.ToString() + ";";
 

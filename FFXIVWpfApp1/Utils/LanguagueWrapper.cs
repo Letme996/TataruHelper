@@ -21,7 +21,9 @@ namespace FFXIVTataruHelper
             Polish = 4,
             Korean = 5,
             PortugueseBR = 6,
-
+            Catalan = 7,
+            Italian = 8,
+            Ukrainian = 9,
         };
 
         public Languages CurrentLanguage
@@ -80,6 +82,15 @@ namespace FFXIVTataruHelper
                     case Languages.PortugueseBR:
                         path += GlobalSettings.pt_BR_LanguaguePath;
                         break;
+                    case Languages.Catalan:
+                        path += GlobalSettings.ca_Es_LanguaguePath;
+                        break;
+                    case Languages.Italian:
+                        path += GlobalSettings.it_IT_LanguaguePath;
+                        break;
+                    case Languages.Ukrainian:
+                        path += GlobalSettings.uk_UA_LanguaguePath;
+                        break;
 
                     default:
                         path += GlobalSettings.en_US_LanguaguePath;
@@ -129,6 +140,8 @@ namespace FFXIVTataruHelper
             _SettingsWindow.Resources["FontColor"] = catalog.GetString("Font Color");
             _SettingsWindow.Resources["FontColor1"] = catalog.GetString("Color 1");
             _SettingsWindow.Resources["FontColor2"] = catalog.GetString("Color 2");
+
+            _SettingsWindow.Resources["FontFamily"] = catalog.GetString("Font");
 
             _SettingsWindow.Resources["BackgroundColor"] = catalog.GetString("Background Color");
 
@@ -229,8 +242,15 @@ namespace FFXIVTataruHelper
             _SettingsWindow.Resources["CkEmotes"] = catalog.GetString("Emotes");
             _SettingsWindow.Resources["CkCustomEmotes"] = catalog.GetString("Custom Emotes");
 
+            _SettingsWindow.Resources["DownloadingUpdate"] = catalog.GetString("Downloading new version:");
+            _SettingsWindow.Resources["UpdateInstalled"] = catalog.GetString("Click here to update to new version.");
 
+            _SettingsWindow.Resources["NotifyUpdateTitle"] = catalog.GetString("Tataru Update");
+            _SettingsWindow.Resources["NotifyUpdateText"] = catalog.GetString("New Tataru helper version is available. Restart Application to update.");
 
+            _SettingsWindow.Resources["CheckUpdatesText"] = catalog.GetString("Check updates");
+            _SettingsWindow.Resources["LookingForUpdates"] = catalog.GetString("Looking for updates...");
+            _SettingsWindow.Resources["NoUpdatesFound"] = catalog.GetString("No updates found.");
         }
     }
 }

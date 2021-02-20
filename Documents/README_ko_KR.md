@@ -4,13 +4,14 @@
         <img src="https://img.shields.io/discord/592039000538349569?logo=discord"
             alt="chat on Discord"></a>
             
-## [바로 다운로드하기](https://github.com/NightlyRevenger/TataruHelper/releases/latest) (Setup.exe)
+## [바로 다운로드하기](https://github.com/NightlyRevenger/TataruHelper/releases/latest/download/Setup.exe) (Setup.exe)
 
 ## [Tataru's Discord Server (영어)](https://discord.gg/bSrpbd9)
 
 * * *
 
-![TataruHead](./Tataru_img.png) ![LiveAction](./LiveAction.gif)
+![TataruHead](./Tataru_img.png) ![LiveAction](./LiveAction.gif)  
+![LiveChat](./2020-08-18_21-24-41.gif)
 
 ## [데모영상 (YouTube)](https://youtu.be/SY5voIl0c8g)
 
@@ -95,7 +96,7 @@ NightlyRevenger (개발자):
 ## 지원
 
 이 프로젝트를 후원하고 싶으시다면 아래 링크를 사용해주세요.  
-MasterCard(Sberbank): 5469 3800 2554 9048  
+VISA(Sberbank): 4274 3200 5656 5370  
 Yandex.Money: [4100172621059](https://money.yandex.ru/to/4100172621059)  
 PayPal: [paypal.me/xdarkone](https://www.paypal.me/xdarkone)  
 Patreon: [TataruHelper](https://www.patreon.com/TataruHelper)

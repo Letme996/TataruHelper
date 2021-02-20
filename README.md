@@ -1,25 +1,40 @@
 # Tataru Helper
 
-[![Current Version](https://img.shields.io/github/release/NightlyRevenger/TataruHelper)](https://github.com/NightlyRevenger/TataruHelper/releases) ![GitHub Releases (by Asset)](https://img.shields.io/github/downloads/NightlyRevenger/TataruHelper/latest/TataruHelper-0.9.50-full.nupkg?label=Downloads)  [![Crowdin](https://badges.crowdin.net/tataru-helper/localized.svg)](https://crowdin.com/project/tataru-helper) <a href="https://discord.gg/bSrpbd9">
+[![Current Version](https://img.shields.io/github/release/NightlyRevenger/TataruHelper)](https://github.com/NightlyRevenger/TataruHelper/releases) ![GitHub Releases (by Asset)](https://img.shields.io/github/downloads/NightlyRevenger/TataruHelper/latest/TataruHelper-0.9.98-delta.nupkg?label=Downloads)  [![Crowdin](https://badges.crowdin.net/tataru-helper/localized.svg)](https://crowdin.com/project/tataru-helper) <a href="https://discord.gg/bSrpbd9">
         <img src="https://img.shields.io/discord/592039000538349569?logo=discord"
             alt="chat on Discord"></a>
 
 
-## [Download Now](https://github.com/NightlyRevenger/TataruHelper/releases/latest)( \---> Download Setup.exe)
+[Download Now](https://github.com/NightlyRevenger/TataruHelper/releases/latest/download/Setup.exe)( \---> Download Setup.exe)
+-
+[Tataru's Discord Server](https://discord.gg/bSrpbd9)  
+-
+[FAQ](https://github.com/NightlyRevenger/TataruHelper/wiki)  
+-
+### [Описание на русском](Documents/README_ru_RU.md)  
 
-## [Tataru's Discord Server](https://discord.gg/bSrpbd9)
+### [한국어 설명](Documents/README_ko_KR.md) 
 
-## [ИНСТРУКЦИЯ НА РУССКОМ](Documents/README_ru_RU.md)  
+### [Descripción en español](Documents/README_es_ES.md) 
 
-## [한국어 설명](Documents/README_ko_KR.md) 
+### [Descripció en català](Documents/README_ca_ES.md) 
+
+### [Polski](Documents/README_pl_PL.md) 
+
+### [Опис на українській](Documents/README_uk_UA.md) 
+
+### [中文](Documents/README_zh_ZH.md) 
+
+### [日本語](Documents/README_ja_JP.md) 
 
 * * *
 
-![TataruHead](Documents/Tataru_img.png) ![LiveAction](Documents/LiveAction.gif)
+![TataruHead](Documents/Tataru_img.png) ![LiveAction](Documents/LiveAction.gif)  
+![LiveTranslation](Documents/2020-08-18_21-12-52.gif)
 
-## [Demonstration](https://youtu.be/7HiQXzmkQuw)
+### [Demonstration](https://youtu.be/7HiQXzmkQuw)
 
-## [Donations](https://github.com/NightlyRevenger/TataruHelper/blob/master/README.md#support)
+### [Donations](https://github.com/NightlyRevenger/TataruHelper/blob/master/README.md#support)
 
 * * *
 
@@ -103,8 +118,9 @@ NightlyRevenger(developer):
 ## Support
 
 If you want to support this project, use the links below:  
-MasterCard(Sberbank): 5469 3800 2554 9048  
+VISA(Sberbank): 4274 3200 5656 5370  
 Yandex.Money: [4100172621059](https://money.yandex.ru/to/4100172621059)  
+Bitcoin: 18vSbJnqL63emRfjTZwjAggv8DL4bAuTiE  
 PayPal: [paypal.me/xdarkone](https://www.paypal.me/xdarkone)  
 Patreon: [TataruHelper](https://www.patreon.com/TataruHelper)
 

@@ -15,12 +15,16 @@
     <system:String x:Key="DocLanguagePl">Polski</system:String>
     <system:String x:Key="DocLanguageKr">한국어</system:String>
     <system:String x:Key="DocLanguagePtBr">Português brasileiro</system:String>
+    <system:String x:Key="DocLanguageCat">Català</system:String>
+    <system:String x:Key="DocLanguageIta">Italiano</system:String>
+    <system:String x:Key="DocLanguageUkr">Українська</system:String>
 
     <system:String x:Key="DockHelp">Help</system:String>
 
     <system:String x:Key="DockAbout">About</system:String>
 
     <system:String x:Key="DockPatrons">Patrons</system:String>
+    <system:String x:Key="DockDiscrod">Discord</system:String>
 
     <system:String x:Key="FFStatusLable">FF Status:</system:String>
 
@@ -41,6 +45,7 @@
     <system:String x:Key="FontColor">Font Color</system:String>
     <system:String x:Key="FontColor1">Color 1</system:String>
     <system:String x:Key="FontColor2">Color 2</system:String>
+    <system:String x:Key="FontFamily">Font</system:String>
 
     <system:String x:Key="BackgroundColor">Background Color</system:String>
 
@@ -76,6 +81,7 @@
     <system:String x:Key="DirectMemoryCB">Direct Memory Reading</system:String>
     <system:String x:Key="DirectMemoryToolTip">Direct Memory Tooltip</system:String>
     <system:String x:Key="HideToTrayCB">Hide to Tray</system:String>
+    <system:String x:Key="ShowTimestampsCb">Show Timestamps</system:String>
 
     <system:String x:Key="ShowChatBox">Show Chat Window</system:String>
     <system:String x:Key="HideChatBox">Hide Chat Window</system:String>
@@ -109,11 +115,36 @@
     <system:String x:Key="CkLinkShell8">LinkShell8</system:String>
     <system:String x:Key="CkNoviceNetwork">NoviceNetwork</system:String>
 
+    <system:String x:Key="CkServerInfo">Server Info</system:String>
+    
+    <system:String x:Key="CkCWLS1">CWLS1</system:String>
+    <system:String x:Key="CkCWLS2">CWLS2</system:String>
+    <system:String x:Key="CkCWLS3">CWLS3</system:String>
+    <system:String x:Key="CkCWLS4">CWLS4</system:String>
+    <system:String x:Key="CkCWLS5">CWLS5</system:String>
+    <system:String x:Key="CkCWLS6">CWLS6</system:String>
+    <system:String x:Key="CkCWLS7">CWLS7</system:String>
+    <system:String x:Key="CkCWLS8">CWLS8</system:String>
+
+    <system:String x:Key="CkEmotes">Emotes</system:String>
+    <system:String x:Key="CkCustomEmotes">Custom Emotes</system:String>
+    
     <system:String x:Key="DearPatrons">Dear Patrons!</system:String>
     <system:String x:Key="PatronsMsg">We express our great appreciation to the people who support our project and motivate us for new achievements.</system:String>
     <system:String x:Key="PatronsThankYou">Thank you</system:String>
 
     <system:String x:Key="SettingsHide">Hide</system:String>
     <system:String x:Key="SettingsExit">Exit</system:String>
+
+    <system:String x:Key="DownloadingUpdate">Downloading new version:</system:String>
+    <system:String x:Key="UpdateInstalled">Click here to update to new version.</system:String>
+
+    <system:String x:Key="NotifyUpdateTitle">Tataru Update</system:String>
+    <system:String x:Key="NotifyUpdateText">New Tataru helper version is available. Restart Application to update.</system:String>
+
+    <system:String x:Key="CheckUpdatesText">Check updates</system:String>
+
+    <system:String x:Key="LookingForUpdates">Looking for updates...</system:String>
+    <system:String x:Key="NoUpdatesFound">No updates found.</system:String>
 
 </ResourceDictionary>

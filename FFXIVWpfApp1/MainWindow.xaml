@@ -23,28 +23,71 @@
                 <ContextMenu x:Name="TrayMenu" ItemsSource="{Binding ChatWindows}" ItemTemplateSelector="{StaticResource headerTemplateSelectorTB}"/>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>
-        
-        <DockPanel>
-            <Menu DockPanel.Dock="Top" Background="White" BorderThickness="0,0,0,1">
-                <MenuItem Header="{DynamicResource DocLanguage}">
-                    <MenuItem Header="{DynamicResource DocLanguageRu}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Russian" />
+
+        <DockPanel HorizontalAlignment="Stretch">
+            <Menu Background="White" BorderThickness="0,0,0,1" DockPanel.Dock="Top" >
+                <Menu.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </Menu.ItemsPanel>
+
+                <MenuItem Header="{DynamicResource DocLanguage}"  Grid.Column="0">
                     <MenuItem Header="{DynamicResource DocLanguageEn}" Command="{Binding SwitchLanguageCommand}" CommandParameter="English"/>
+                    <MenuItem Header="{DynamicResource DocLanguageRu}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Russian" />
                     <MenuItem Header="{DynamicResource DocLanguageEs}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Spanish"/>
                     <MenuItem Header="{DynamicResource DocLanguagePl}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Polish" />
                     <MenuItem Header="{DynamicResource DocLanguageKr}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Korean" />
                     <MenuItem Header="{DynamicResource DocLanguagePtBr}" Command="{Binding SwitchLanguageCommand}" CommandParameter="PortugueseBR" />
+                    <MenuItem Header="{DynamicResource DocLanguageCat}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Catalan" />
+                    <MenuItem Header="{DynamicResource DocLanguageIta}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Italian" />
+                    <MenuItem Header="{DynamicResource DocLanguageUkr}" Command="{Binding SwitchLanguageCommand}" CommandParameter="Ukrainian" />
+                    <MenuItem >
+                        <MenuItem.Header>
+                            <Hyperlink NavigateUri="https://crowdin.com/project/tataru-helper" RequestNavigate="Hyperlink_RequestNavigate">
+                                <TextBlock Text="https://crowdin.com"/>
+                            </Hyperlink>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource DockHelp}">
+                <MenuItem Header="{DynamicResource DockHelp}" Grid.Column="1">
                     <MenuItem Header="{DynamicResource DockAbout}"  Click="About_Click"/>
+                    <MenuItem x:Name="CheckUpdatesButton" Header="{DynamicResource CheckUpdatesText}"  Click="CheckUpdates_Click"/>
                 </MenuItem>
-                <MenuItem Header="{DynamicResource DockPatrons}" Click="Patrons_Click">
-                </MenuItem>
+                <MenuItem Header="{DynamicResource DockPatrons}" Click="Patrons_Click" Background="#FFF96854" HorizontalAlignment="Right" Grid.Column="2" Margin="0,0,55,0"/>
+                <MenuItem Header="{DynamicResource DockDiscrod}" Click="Discord_Click" Background="#FF313138" Foreground="White" HorizontalAlignment="Right" Grid.Column="2"/>
             </Menu>
-            <Border BorderThickness="0,1,0,0" BorderBrush="LightGray">
-                <StackPanel>
-                </StackPanel>
-            </Border>
+            <Border BorderThickness="0,1,0,0" BorderBrush="LightGray"/>
         </DockPanel>
+
+        <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top"  Margin="110,1,0,0" Height="46" Visibility="{Binding UpdatingBlockVisiblity,Converter={utils:BooleanToVisibilityConverterCollapse}, Mode=OneWay, FallbackValue=Collapsed}">
+            <WrapPanel Margin="0,0,10,0" Visibility="{Binding UserStartedUpdateTextVisibility, Converter={utils:BooleanToVisibilityConverterCollapse}, Mode=OneWay}">
+                <TextBlock x:Name="UserStartedUpdateText" Text=""/>
+            </WrapPanel>
+            <WrapPanel Visibility="{Binding DownloadingUpdateVisibility,Converter={utils:BooleanToVisibilityConverterCollapse}, Mode=OneWay}">
+                <TextBlock Text="{DynamicResource DownloadingUpdate}"/>
+                <Grid Margin="5,2,0,0">
+                    <utils:CircularProgressBar x:Name="progressBar"
+                             DockPanel.Dock="Left"
+                             VerticalAlignment="Top"
+                                           Height="45"
+                                           Width="45">
+                    </utils:CircularProgressBar>
+                    <Grid.RenderTransform>
+                        <ScaleTransform ScaleX="0.3" ScaleY="0.3" />
+                    </Grid.RenderTransform>
+                </Grid>
+            </WrapPanel>
+            <WrapPanel Margin="0,0,10,0" Visibility="{Binding RestartReadyVisibility,Converter={utils:BooleanToVisibilityConverterCollapse}, Mode=OneWay}">
+                <TextBlock Text="{DynamicResource UpdateInstalled}" Cursor="Hand" TextDecorations="Underline" PreviewMouseDown="RestartApp_Click"/>
+            </WrapPanel>
+        </WrapPanel>
 
         <Label Content="{DynamicResource FFStatusLable}" Width="66" Height="31" Margin="10,26,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label x:Name="FFStatusText" Content="{DynamicResource FFStatusText}" Height="31" Margin="81,26,10,0" VerticalAlignment="Top"/>
@@ -59,7 +102,7 @@
                         <TabControl Visibility="{Binding Path=DataContext.InnerVisibility, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type TabControl}}, Converter={utils:BooleanToVisibilityConverter}, Mode=TwoWay}" MinHeight="200">
                             <TabItem Header="{DynamicResource ChatAppearance}">
                                 <WrapPanel Orientation="Horizontal">
-                                    <GroupBox Header="{DynamicResource FontSettings}" Margin="5,5,5,5" Height="159" VerticalAlignment="Top" Width="180">
+                                    <GroupBox Header="{DynamicResource FontSettings}" Margin="5,5,5,5" Height="210" VerticalAlignment="Top" Width="180">
                                         <StackPanel Margin="0">
                                             <Label Content="{DynamicResource FontSize}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="158" />
                                             <xctk:IntegerUpDown Value="{Binding ChatFontSize, Mode=TwoWay}"  HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="140" Minimum="1" Maximum="100" />
@@ -68,9 +111,14 @@
                                             <xctk:ColorPicker SelectedColor="{Binding BackGroundColor,Mode=TwoWay}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="140" 
                                                           StandardButtonHeader="{DynamicResource ColorPickerStandardButtonHeader}" AdvancedButtonHeader="{DynamicResource ColorPickerAdvancedButtonHeader}" StandardColorsHeader="{DynamicResource ColorPickerStandardColorsHeader}"
                                                           RecentColorsHeader="{DynamicResource ColorPickerRecentColorsHeader}" ShowAvailableColors="False" ShowStandardColors="True" ShowRecentColors="True" />
+
+                                            <Label Content="{DynamicResource FontFamily}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="152"/>
+                                            <ComboBox ItemsSource="{Binding Source={x:Static Fonts.SystemFontFamilies}}"
+                                                      SelectedItem="{Binding ChatFont, Mode=TwoWay}"/>
+
                                         </StackPanel>
                                     </GroupBox>
-                                    <GroupBox Header="{DynamicResource ParagraphSettings}" Margin="5,5,5,5" HorizontalAlignment="Left" Height="159" VerticalAlignment="Top" Width="180">
+                                    <GroupBox Header="{DynamicResource ParagraphSettings}" Margin="5,5,5,5" HorizontalAlignment="Left" Height="210" VerticalAlignment="Top" Width="180">
                                         <StackPanel Margin="0">
                                             <Label Content="{DynamicResource IntervalWidth}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="158"/>
                                             <xctk:IntegerUpDown Value="{Binding SpacingCount, Mode=TwoWay}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="140" Minimum="0" Maximum="100" />
@@ -167,6 +215,8 @@
                                                 <CheckBox IsChecked="{Binding IsAutoHide, Mode=TwoWay}" Content="{DynamicResource AutoHideCB}" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="80" Margin="0,5,0,0"/>
                                                 <xctk:IntegerUpDown Value="{Binding AutoHideTimeoutSeconds,Mode=TwoWay}" HorizontalAlignment="Left" Height="31" VerticalAlignment="Top" Width="86" Minimum="1" Maximum="36000"/>
                                             </StackPanel>
+
+                                            <CheckBox IsChecked="{Binding ShowTimestamps, Mode=TwoWay}" Content="{DynamicResource ShowTimestampsCb}" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Margin="0,5,0,0" />
                                         </StackPanel>
                                     </GroupBox>
                                 </WrapPanel>

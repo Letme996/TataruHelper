@@ -2,7 +2,6 @@
 // PVS-Studio Static Code Analyzer for C, C++, C#, and Java: http://www.viva64.com
 
 using FFXIVTataruHelper.EventArguments;
-using FFXIVTataruHelper.Translation;
 using FFXIVTataruHelper.WinUtils;
 using System;
 using System.Collections.Generic;
@@ -16,6 +15,7 @@ using System.Windows.Data;
 using FFXIVTataruHelper.UIModel;
 using BondTech.HotKeyManagement.WPF._4;
 using System.Windows.Input;
+using Translation;
 
 namespace FFXIVTataruHelper.ViewModel
 {
@@ -98,6 +98,18 @@ namespace FFXIVTataruHelper.ViewModel
                 if (_SpacingCount == value) return;
 
                 _SpacingCount = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public FontFamily ChatFont
+        {
+            get { return _ChatFont; }
+            set
+            {
+                if (_ChatFont == value) return;
+
+                _ChatFont = value;
                 OnPropertyChanged();
             }
         }
@@ -403,6 +415,18 @@ namespace FFXIVTataruHelper.ViewModel
             get { return (TranslatorLanguague)TranslateToLanguagues.CurrentItem; }
         }
 
+        public bool ShowTimestamps
+        {
+            get => _ShowTimestamps;
+            set
+            {
+                if (_ShowTimestamps == value) return;
+
+                _ShowTimestamps = value;
+                OnPropertyChanged();
+            }
+        }
+
         public bool IsSelected
         {
             get { return _IsSelected; }
@@ -441,6 +465,8 @@ namespace FFXIVTataruHelper.ViewModel
         double _LineBreakHeight;
         int _SpacingCount;
 
+        FontFamily _ChatFont;
+
         bool _IsAlwaysOnTop;
         bool _IsClickThrough;
         bool _IsAutoHide;
@@ -468,6 +494,8 @@ namespace FFXIVTataruHelper.ViewModel
         GlobalHotKey _ClearChat;
 
         HotKeyManager _HotKeyManager;
+
+        bool _ShowTimestamps;
 
         bool _IsSelected;
 
@@ -517,6 +545,8 @@ namespace FFXIVTataruHelper.ViewModel
             LineBreakHeight = settings.LineBreakHeight;
             SpacingCount = settings.SpacingCount;
 
+            ChatFont = settings.ChatFont;
+
             IsAlwaysOnTop = settings.IsAlwaysOnTop;
             IsClickThrough = settings.IsClickThrough;
             IsAutoHide = settings.IsAutoHide;
@@ -524,6 +554,8 @@ namespace FFXIVTataruHelper.ViewModel
             AutoHideTimeout = settings.AutoHideTimeout;
 
             IsHiddenByUser = false;
+
+            ShowTimestamps = settings.ShowTimestamps;
 
             BackGroundColor = settings.BackGroundColor;
 
@@ -763,7 +795,12 @@ namespace FFXIVTataruHelper.ViewModel
             _TranslateFromLanguagues.CurrentChanged += OnTranslateFromLanguageChange;
             OnPropertyChanged("TranslateFromLanguagues");
 
-            _TranslateToLanguagues = new CollectionView(((TranslationEngine)_TranslationEngines.CurrentItem).SupportedLanguages.ToList());
+            List<TranslatorLanguague> supportedToLanguages = ((TranslationEngine)_TranslationEngines.CurrentItem).SupportedLanguages.ToList();
+            var lang = supportedToLanguages.FirstOrDefault(x => x.SystemName == "Auto");
+            if (lang != null)
+                supportedToLanguages.Remove(lang);
+
+            _TranslateToLanguagues = new CollectionView(supportedToLanguages.ToList());
             _TranslateToLanguagues.CurrentChanged += OnTranslateToLanguageChange;
             OnPropertyChanged("TranslateToLanguagues");
 

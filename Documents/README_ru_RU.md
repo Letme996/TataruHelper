@@ -4,13 +4,14 @@
         <img src="https://img.shields.io/discord/592039000538349569?logo=discord"
             alt="chat on Discord"></a>
             
-## [Скачать](https://github.com/NightlyRevenger/TataruHelper/releases/latest)( \---> Скачайте Setup.exe)
+## [Скачать](https://github.com/NightlyRevenger/TataruHelper/releases/latest/download/Setup.exe)( \---> Скачайте Setup.exe)
 
 ## [Наш сервер Discord](https://discord.gg/bSrpbd9)
 
 * * *
 
-![TataruHead](./Tataru_img.png) ![LiveAction](./LiveAction.gif)
+![TataruHead](Tataru_img.png) ![LiveAction](LiveAction.gif)  
+![LiveTranslation](2020-08-18_21-12-52.gif)
 
 ## [Демонстрация](https://youtu.be/7HiQXzmkQuw)
 
@@ -27,7 +28,7 @@
    * [Лицензия](#лицензия)
    * [Благодарности](#благодарности)
    * [Контакты](#контакты)
-   * [Поддержка](#поддержка)
+   * [Поддержка](#поддержка-1)
 
 * * *
 
@@ -98,7 +99,7 @@ NightlyRevenger(developer):
 ## Поддержка
 
 Если вы хотите поддержать проект, воспользуйтесь ссылками ниже:  
-MasterCard(Сбербанк): 5469 3800 2554 9048  
+VISA(Сбербанк): 4274 3200 5656 5370  
 Яндекс.Деньги: [4100172621059](https://money.yandex.ru/to/4100172621059)  
 PayPal: [paypal.me/xdarkone](https://www.paypal.me/xdarkone)  
 Patreon: [TataruHelper](https://www.patreon.com/TataruHelper)

@@ -7,9 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Media;
 using System.Linq;
-using static FFXIVTataruHelper.Translation.WebTranslator;
 using System.Collections.ObjectModel;
-using FFXIVTataruHelper.Translation;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -224,8 +222,6 @@ namespace FFXIVTataruHelper
             var tmpChatList = Helper.LoadJsonData<List<ChatMsgType>>(GlobalSettings.ChatCodesFilePath);
 
             var tmpChatWindows = new List<ChatWindowViewModelSettings>(userSettings.ChatWindows);
-
-            TataruComponentModel.AsyncBindingList<string> bs = new TataruComponentModel.AsyncBindingList<string>();
 
             UiWindow.Window.UIThread(() =>
             {
